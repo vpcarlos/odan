@@ -13,11 +13,6 @@ setup(
     license='unlicensed',
     py_modules=['odan'],
     package_dir={'': 'src'},
-    classifiers=[
-        'Programing Language :: Python :: 3',
-        'Programing Language :: Python :: 3.7',
-        'License :: OSI Approved :: GNU General Public License v3.0'
-    ],
     long_description=long_description,
     long_description_content_type='text/markdown',
     install_requires=[
