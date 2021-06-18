@@ -1,0 +1,54 @@
+version: '3.3'
+services:
+  web:
+    container_name: web-odoo-{{branch}}-{{name}}
+    build: .
+    image: odoo-{{branch}}-{{name}}
+    depends_on:
+      - db
+    ports:
+      - '8069'
+      - '8072'
+    volumes:
+      - 'odoo-data:/var/lib/odoo'
+      - './config:/etc/odoo'
+      - './addons:/mnt'
+      - './addons/extra-addons:/mnt/extra-addons'
+    networks:
+      - default
+      - nginx-net
+    tty: true
+    logging:
+      driver: json-file
+      options:
+        max-size: 150m
+    environment:
+      - VIRTUAL_HOST={{domain}}
+      - VIRTUAL_PORT=8069
+      - LETSENCRYPT_HOST={{domain}}
+      - LETSENCRYPT_EMAIL={{email}}
+  db:
+    container_name: db-odoo-{{branch}}-{{name}}
+    image: 'postgres:10'
+    ports:
+      - '5432'
+    environment:
+      - POSTGRES_PASSWORD={{pg_pass}}
+      - POSTGRES_USER=odoo
+      - POSTGRES_DB=postgres
+      - PGPASS={{pg_pass}}
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    volumes:
+      - 'postgres-data:/var/lib/postgresql/data/pgdata'
+    networks:
+      - default
+    logging:
+      driver: json-file
+      options:
+        max-size: 20m
+volumes:
+  postgres-data: null
+  odoo-data: null
+networks:
+  nginx-net:
+    external: true

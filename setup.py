@@ -11,8 +11,8 @@ setup(
     author_email='vpcarlos97@gmail.com',
     url='https://github.com/vpcarlos/odan',
     license='unlicensed',
-    py_modules=['odan'],
-    package_dir={'': 'src'},
+    include_package_data=True,
+    packages=find_packages(),
     long_description=long_description,
     long_description_content_type='text/markdown',
     install_requires=[
@@ -22,5 +22,9 @@ setup(
         'dev': [
             'pytest >=3.7'
         ]
-    }
+    },
+    entry_points='''
+        [console_scripts]
+        odan=odan.main:odan
+    '''
 )
