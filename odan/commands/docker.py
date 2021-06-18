@@ -26,7 +26,7 @@ def install(ctx, force):
         return
 
     # Install docker
-    click.secho('Installing docker...')
+    click.secho('Installing docker...', fg='green')
 
     # Get sh script for instalation and storing it in a temp file
     run_command([
@@ -77,8 +77,9 @@ def uninstall():
 
 
 def create_docker_group():
-    run_command(["groupadd", "docker"])
+    run_command(["groupadd", "docker"], raise_error=False)
 
 
 def add_user_to_group():
-    run_command(["usermod", "-aG", "docker", "${SUDO_USER:-$USER}"])
+    run_command(["usermod", "-aG", "docker",
+                 "${SUDO_USER:-$USER}"], raise_error=False)
