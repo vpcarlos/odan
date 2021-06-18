@@ -58,14 +58,14 @@ def reinstall(ctx):
         ctx.invoke(install)
 
 
-@docker.command(help='Reinstall docker')
+@docker.command(help='Uninstall docker')
 def uninstall():
     if not check('docker'):
         click.secho("Docker is not installed", fg='red')
         return False
     if click.confirm('Are you sure you want to uninstall Docker?'):
         click.secho('Removing docker...', fg='yellow')
-        apt_remove(['docker'])
+        apt_remove(['docker'], stream_output=True)
         click.secho('Docker uninstaled', fg='green')
         return True
     return False
