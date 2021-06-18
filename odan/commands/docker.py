@@ -65,7 +65,12 @@ def uninstall():
         return False
     if click.confirm('Are you sure you want to uninstall Docker?'):
         click.secho('Removing docker...', fg='yellow')
-        apt_remove(['docker'], stream_output=True)
+        apt_purge([
+            'docker',
+            'docker-ce',
+            'docker-ce-cli',
+            'containerd.io'
+        ], stream_output=True)
         click.secho('Docker uninstaled', fg='green')
         return True
     return False
