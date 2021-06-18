@@ -29,22 +29,8 @@ def install(ctx, force):
     click.secho('Installing docker...', fg='green')
 
     # Get sh script for instalation and storing it in a temp file
-    run_command([
-        "curl",
-        "-sL",
-        "get.docker.com",
-        "-o",
-        "docker.sh"
-    ])
-
-    # Executing sh script
-    run_command([
-        "sh",
-        "docker.sh",
-    ], stream_output=True)
-
-    # Removing temp file
-    rm("docker.sh")
+    apt_install(['docker-ce', 'docker-ce-cli',
+                 'containerd.io'], stream_output=True)
 
     # Crear docker group and user
     create_docker_group()
@@ -71,7 +57,7 @@ def uninstall():
             'docker-ce-cli',
             'containerd.io'
         ], stream_output=True)
-        click.secho('Docker uninstaled', fg='green')
+        click.secho('Docker uninstalled', fg='green')
         return True
     return False
 
