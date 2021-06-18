@@ -16,7 +16,8 @@ setup(
     long_description=long_description,
     long_description_content_type='text/markdown',
     install_requires=[
-        'click>=7.0'
+        'click>=7.0',
+        'docker-compose>=1.29.2'
     ],
     extras_require={
         'dev': [
