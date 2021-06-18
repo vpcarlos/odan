@@ -8,7 +8,7 @@ from contextlib import contextmanager
 
 def apt(command, packages=[], stream_output=False):
     run_command(
-        ["sudo", "apt-get", "-y", command] + packages,
+        ["sudo", "apt-get", command, "-y"] + packages,
         stream_output=stream_output
     )
 
@@ -21,8 +21,8 @@ def apt_install(packages, stream_output=False):
     apt("install", packages, stream_output=stream_output)
 
 
-def apt_purge(packages, stream_output=False):
-    apt("purge", packages, stream_output=stream_output)
+def apt_remove(packages, stream_output=False):
+    apt("remove", packages, stream_output=stream_output)
 
 
 def check(package, stream_output=False):

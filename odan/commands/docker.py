@@ -25,6 +25,7 @@ def install(ctx, force):
         click.secho('Docker already installed!', fg='yellow')
         return
 
+    apt_update()
     # Install docker
     click.secho('Installing docker...', fg='green')
 
@@ -51,7 +52,7 @@ def uninstall():
         return False
     if click.confirm('Are you sure you want to uninstall Docker?'):
         click.secho('Removing docker...', fg='yellow')
-        apt_purge([
+        apt_remove([
             'docker',
             'docker-ce',
             'docker-ce-cli',
