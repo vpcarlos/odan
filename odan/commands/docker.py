@@ -71,9 +71,9 @@ def uninstall():
     return False
 
 
-def create_docker_group(self):
+def create_docker_group():
     run_command(["groupadd", "docker"])
 
 
-def add_user_to_group(self):
+def add_user_to_group():
     run_command(["usermod", "-aG", "docker", "${SUDO_USER:-$USER}"])
