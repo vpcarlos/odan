@@ -15,6 +15,7 @@ def nginx():
 @nginx.command()
 @click.pass_context
 def deploy(ctx):
+    click.invoke(build)
     if check('docker') and check('docker-compose') and os.path.isdir(NGINX_DIR):
         ctx.invoke(network)
         with cwd(NGINX_DIR):
