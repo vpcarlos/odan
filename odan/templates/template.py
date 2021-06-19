@@ -1,4 +1,5 @@
 import os
+import shutil
 from jinja2 import Template, PackageLoader, Environment
 from odan.tools.env import cwd
 
@@ -7,7 +8,7 @@ loader = PackageLoader('odan', 'templates')
 env = Environment(loader=loader)
 
 
-def copy(src, data):
+def copy(src, data, render=True):
 
     current_dir = os.path.dirname(os.path.realpath(__file__))
 
@@ -23,6 +24,11 @@ def copy(src, data):
                     os.makedirs(os.path.join('.' + rel_tmpl_dir))
                 except FileExistsError:
                     pass
-            with open(os.path.join('.' + rel_tmpl_dir, name), 'w') as f:
-                _template = env.get_template(rel_current_dir)
-                f.write(_template.render(data))
+            if render:
+                with open(os.path.join('.' + rel_tmpl_dir, name), 'w') as f:
+
+                    _template = env.get_template(rel_current_dir)
+                    f.write(_template.render(data))
+            else:
+                shutil.copy(os.path.join(root, name),
+                            os.path.join('.' + rel_tmpl_dir, name))

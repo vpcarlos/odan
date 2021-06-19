@@ -12,12 +12,6 @@ def docker():
 @docker.command(help='Install docker')
 @click.pass_context
 def install(ctx, force):
-    # Install curl in order to get docker
-    if not check("curl"):
-        click.secho('Installing curl...', fg='green')
-        apt_update()
-        apt_install(["curl"], stream_output=True)
-
     if force:
         ctx.invoke(uninstall)
     # Check if docker is already installed
