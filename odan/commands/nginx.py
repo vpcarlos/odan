@@ -30,8 +30,9 @@ def deploy(ctx):
 
 @nginx.command()
 def build():
-    run_command(['sudo', 'mkdir', NGINX_DIR])
-    run_command(['sudo', 'chown', getpass.getuser(), NGINX_DIR])
+    run_command(['sudo', 'mkdir', NGINX_DIR], raise_error=False)
+    run_command(['sudo', 'chown', getpass.getuser(),
+                 NGINX_DIR], raise_error=False)
     with cwd(NGINX_DIR):
         copy('nginx', {}, render=False)
 
