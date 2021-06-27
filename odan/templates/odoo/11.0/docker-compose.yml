@@ -3,7 +3,7 @@ services:
   web:
     container_name: web-odoo-{{branch}}-{{name}}
     build: .
-    image: odoo:11.0
+    image: odoo:{{branch}}
     depends_on:
       - db
     ports:
