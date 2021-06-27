@@ -135,6 +135,12 @@ def build(ctx, name, branch, domain, email, admin_pass, pg_pass, release):
     os.mkdir(name)
     with cwd(name):
         copy(f'odoo/{branch}', data)
+        run_command([
+            'chmod', '+x', 'entrypoint.sh'
+        ])
+        run_command([
+            'chmod', '+x', 'wait-for-psql.py'
+        ])
 
 
 @odoo.command(help='Get sha1 from a odoo branch release')
